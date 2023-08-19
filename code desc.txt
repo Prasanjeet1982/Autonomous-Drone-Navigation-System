@@ -1,0 +1,41 @@
+1. **File Structure:**
+
+   The code is organized into three separate files within a directory structure:
+
+   - **main.py:** This is the entry point of the application. It creates instances of the `DroneController` class and starts a separate thread to run the FastAPI web interface.
+   - **drone_controller.py:** This file contains the `DroneController` class responsible for handling drone control tasks.
+   - **web_interface.py:** This file defines the FastAPI web interface endpoints for controlling the drone.
+
+2. **Drone Controller Initialization:**
+
+   In the `drone_controller.py` file, the `DroneController` class is defined. The class constructor initializes an instance of the `Tello` class from the `djitellopy` library. This instance represents the drone and will be used to send control commands to the drone.
+
+3. **Running Drone Control Tasks:**
+
+   The `run_tasks` method within the `DroneController` class is responsible for running the sequence of drone control tasks. Inside the method:
+   
+   - The `connect` method is called to establish a connection to the drone.
+   - The `takeoff` method is called to initiate the drone's takeoff.
+   - The `move_forward` method (a placeholder) is called to perform a drone control task. You can replace this with actual drone movements or actions.
+   - The `land` method is called to initiate the drone's landing.
+   - The `disconnect` method is called to close the connection to the drone.
+
+   All of these operations are enclosed within a `try` block to catch and handle any exceptions that might occur during the process. If an exception is raised, an error message is printed.
+
+4. **Web Interface using FastAPI:**
+
+   In the `web_interface.py` file, the FastAPI application is created. The endpoints `/takeoff`, `/land`, and `/move` are defined as HTTP POST routes. When these routes are accessed via a web browser or API client, they trigger corresponding drone control actions.
+
+   - The `/takeoff` endpoint initiates the drone takeoff sequence by calling the `connect` and `takeoff` methods from the `DroneController`.
+   - The `/land` endpoint triggers the drone's landing sequence by calling the `land` method.
+   - The `/move` endpoint simulates a drone movement task by calling the placeholder `move_forward` method with a distance parameter.
+
+5. **Running the FastAPI Server:**
+
+   The `run_server` function is defined within the `web_interface.py` file. It uses the `uvicorn` library to run the FastAPI application. The server listens on host `"0.0.0.0"` and port `8000`.
+
+6. **Entry Point:**
+
+   The `main.py` file is the entry point of the application. It creates an instance of the `DroneController` class and starts a separate thread to run the FastAPI server using the `run_server` function. Additionally, it calls the `run_tasks` method of the `DroneController` to execute the drone control tasks.
+
+The code demonstrates a basic structure for controlling a drone through a web interface using the `djitellopy` library for drone communication and the FastAPI framework for creating the web interface. You can extend this structure to add more control tasks, error handling, security measures, and advanced features as needed.
